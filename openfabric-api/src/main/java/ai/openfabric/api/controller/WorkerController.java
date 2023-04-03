@@ -29,11 +29,8 @@ public class WorkerController {
     }
 
 
-    @GetMapping(path = "/images")
-    public ResponseEntity<?> getImages() {
-        List<Image> images = dockerClient.listImagesCmd().exec();
-        return ResponseEntity.ok(images);
-    }
+
+
 
     @GetMapping(path = "/containers")
     public ResponseEntity<?> getContainers(){
