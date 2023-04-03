@@ -1,6 +1,5 @@
 package ai.openfabric.api.model;
 
-
 import com.yahoo.elide.annotation.Include;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.io.Serializable;
-@Include(rootLevel = true, type = "worker")
+
+@Include(rootLevel = true, type = "network-settings")
 @Entity()
-public class Worker extends Datable implements Serializable {
+public class NetworkSettings {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "of-uuid")
@@ -21,18 +20,5 @@ public class Worker extends Datable implements Serializable {
     @Getter
     @Setter
     public String id;
-
-    public String name;
-
-    public String containerId;
-    public String imageName;
-    public String status;
-    public String state;
-
-
-
-
-
-
 
 }

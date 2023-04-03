@@ -31,12 +31,16 @@
     <!-- ############################################################ -->
     <!--  Worker  -->
     <!-- ############################################################ -->
-    <changeSet id="WO_01" author="andrei">
+    <changeSet id="WO_01" author="jewel">
         <createTable tableName="worker" remarks="Worker table">
             <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)"/>
+            <column name="container_id" type="text"/>
+            <column name="image_name" type="varchar(255)"/>
+            <column name="status" type="varchar(255)"/>
+            <column name="state" type="varchar(255)"/>
 
             <column name="created_at" type="DATETIME"/>
             <column name="updated_at" type="DATETIME"/>
