@@ -13,7 +13,6 @@ public class DockerImageMapper {
         if(image == null) return null;
         return DockerImageResponse.builder()
                 .imageId(image.getId())
-                .createdAt(image.getCreatedAt())
                 .name(image.getName())
                 .repoDigest(image.getRepoDigest())
                 .repoTag(image.getRepoTag())
@@ -24,7 +23,6 @@ public class DockerImageMapper {
     public DockerImage toDockerImage(DockerImageRequest imageRequest){
         return DockerImage.builder()
                 .imageId(imageRequest.getImageId())
-                .createdAt(imageRequest.getCreatedAt())
                 .name(imageRequest.getName())
                 .repoDigest(imageRequest.getRepoDigest())
                 .repoTag(imageRequest.getRepoTag())

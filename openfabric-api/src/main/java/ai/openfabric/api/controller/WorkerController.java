@@ -21,17 +21,6 @@ public class WorkerController {
 
     private final DockerClient dockerClient;
 
-
-    @PostMapping(path = "/hello")
-    public @ResponseBody String hello(@RequestBody String name) {
-        //System.out.println(dockerClient.listImagesCmd().exec());
-        return "Hello!" + name;
-    }
-
-
-
-
-
     @GetMapping(path = "/containers")
     public ResponseEntity<?> getContainers(){
         List<Container> containers = dockerClient.listContainersCmd().exec();
