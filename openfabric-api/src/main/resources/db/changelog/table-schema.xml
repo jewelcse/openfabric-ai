@@ -52,16 +52,15 @@
     <!--  Image  -->
     <!-- ############################################################ -->
     <changeSet id="WO_02" author="jewel">
-        <createTable tableName="docker-image" remarks="DockerImage table">
+        <createTable tableName="docker_image" remarks="DockerImage table">
             <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)"/>
             <column name="image_id" type="varchar(255)"/>
-            <column name="repoDigest" type="varchar(255)"/>
-            <column name="repoTag" type="varchar(255)"/>
+            <column name="repo_digest" type="varchar(255)"/>
+            <column name="repo_tag" type="varchar(255)"/>
             <column name="size" type="java.lang.Long"/>
-            <column name="created_at" type="DATETIME"/>
         </createTable>
     </changeSet>
 

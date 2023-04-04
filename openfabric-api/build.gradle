@@ -35,7 +35,7 @@ dependencies {
     implementation 'com.github.docker-java:docker-java-core:3.3.0'
     implementation 'com.github.docker-java:docker-java-transport:3.3.0'
     implementation 'com.github.docker-java:docker-java-transport-httpclient5:3.3.0'
-
+    //implementation 'com.yahoo.elide:elide-core:6.1.12'
     implementation 'com.github.docker-java:docker-java:3.3.0'
 
     //-------

@@ -3,6 +3,7 @@ package ai.openfabric.api.controller;
 import ai.openfabric.api.model.request.DockerImageRequest;
 import ai.openfabric.api.model.response.DockerImageResponse;
 import ai.openfabric.api.service.DockerImageService;
+import ai.openfabric.api.serviceImpl.CustomPullImageResultCallback;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.async.ResultCallback;
 import com.github.dockerjava.api.command.InspectImageResponse;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 @RestController
 @RequestMapping("${node.api.path}/images")
@@ -28,16 +30,18 @@ public class ImageController {
     @PostMapping("/pull")
     public ResponseEntity<?> pullImage(@RequestBody String imageName) {
         try {
+            final CountDownLatch countDownLatch = new CountDownLatch(1);
+            PullImageResultCallback callback = new CustomPullImageResultCallback(countDownLatch);
+            dockerClient.pullImageCmd(imageName).exec(callback);
+            countDownLatch.await();
 
-            // todo: apply the checking mechanising
-            dockerClient.pullImageCmd(imageName).start().awaitCompletion();
             InspectImageResponse imageResponse = dockerClient.inspectImageCmd(imageName).exec();
             DockerImageRequest imageRequest = DockerImageRequest.builder()
                     .imageId(imageResponse.getId())
+                    .name(imageName)
                     .repoDigest(imageResponse.getRepoDigests().stream().findFirst().get())
                     .repoTag(imageResponse.getRepoTags().stream().findFirst().get())
                     .size(imageResponse.getSize())
-                    .createdAt(imageResponse.getCreated())
                     .build();
             DockerImageResponse response = dockerImageService.saveImage(imageRequest);
             return ResponseEntity.ok(response);

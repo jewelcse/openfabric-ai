@@ -29,5 +29,4 @@ public class DockerImage {
     public String repoDigest;
     public String repoTag;
     public long size;
-    public String createdAt;
 }
