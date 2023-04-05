@@ -61,6 +61,10 @@
             <column name="repo_digest" type="varchar(255)"/>
             <column name="repo_tag" type="varchar(255)"/>
             <column name="size" type="java.lang.Long"/>
+
+            <column name="created_at" type="DATETIME"/>
+            <column name="updated_at" type="DATETIME"/>
+            <column name="deleted_at" type="DATETIME"/>
         </createTable>
     </changeSet>
 

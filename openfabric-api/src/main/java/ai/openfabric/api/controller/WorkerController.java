@@ -28,9 +28,9 @@ public class WorkerController {
     private final DockerClient dockerClient;
 
     @GetMapping(path = "/containers")
-    public ResponseEntity<?> getContainers() {
-        List<Container> containers = dockerClient.listContainersCmd().exec();
-        return ResponseEntity.ok(containers);
+    public ResponseEntity<?> getContainers(@RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int pageSize) {
+        return ResponseEntity.ok(workerService.getWorkers(page,pageSize));
     }
 
     @PostMapping(path = "/container/create")
