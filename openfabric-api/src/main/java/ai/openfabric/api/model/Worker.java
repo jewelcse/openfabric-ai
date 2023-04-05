@@ -2,8 +2,7 @@ package ai.openfabric.api.model;
 
 
 import com.yahoo.elide.annotation.Include;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -13,6 +12,11 @@ import javax.persistence.Id;
 import java.io.Serializable;
 @Include(rootLevel = true, type = "worker")
 @Entity()
+@Builder
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Worker extends Datable implements Serializable {
 
     @Id
