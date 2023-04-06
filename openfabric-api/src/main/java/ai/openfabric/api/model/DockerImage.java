@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -16,7 +15,7 @@ import java.time.Instant;
 @Builder
 @Include(rootLevel = true, type = "image")
 @Entity()
-public class DockerImage {
+public class DockerImage extends Datable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "of-uuid")
