@@ -25,7 +25,6 @@ public class ImageController {
     public ResponseEntity<?> pullImage(@RequestBody String imageName) {
         try {
             dockerClient.pullImageCmd(imageName).start().awaitCompletion();
-
             InspectImageResponse imageResponse = dockerClient.inspectImageCmd(imageName).exec();
             DockerImageRequest imageRequest = DockerImageRequest.builder()
                     .imageId(imageResponse.getId())
@@ -36,7 +35,6 @@ public class ImageController {
                     .build();
             DockerImageResponse response = dockerImageService.saveImage(imageRequest);
             return ResponseEntity.ok(response);
-            //return ResponseEntity.ok("Image already pulled.");
         } catch (InterruptedException | DockerException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error pulling image.");

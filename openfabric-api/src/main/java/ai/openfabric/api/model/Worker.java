@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+
 @Include(rootLevel = true, type = "worker")
 @Entity()
 @Builder
@@ -25,18 +26,10 @@ public class Worker extends Datable implements Serializable {
     @Getter
     @Setter
     public String id;
-
     public String name;
-
     public String containerId;
     public String imageName;
     public String status;
     public String state;
-
-
-
-
-
-
 
 }

@@ -1,22 +1,15 @@
 package ai.openfabric.api.controller;
 
-import ai.openfabric.api.config.MyDockerClientConfig;
 import ai.openfabric.api.model.request.WorkerCreateRequest;
 import ai.openfabric.api.service.WorkerService;
+import ai.openfabric.api.util.ApplicationUtil;
 import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.command.CreateContainerCmd;
 import com.github.dockerjava.api.command.CreateContainerResponse;
 import com.github.dockerjava.api.model.*;
-import com.github.dockerjava.core.DockerClientBuilder;
-import com.github.dockerjava.core.DockerClientConfig;
-import com.github.dockerjava.transport.DockerHttpClient;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("${node.api.path}/worker")
@@ -39,7 +32,7 @@ public class WorkerController {
         ExposedPort tcp02 = ExposedPort.tcp(8080);
         CreateContainerResponse containerResponse = dockerClient
                 .createContainerCmd(name)
-                .withHostName("random name")
+                .withHostName(ApplicationUtil.generateRandomName())
                 .withExposedPorts(tcp01,tcp02)
                 .exec();
         dockerClient.startContainerCmd(containerResponse.getId()).exec();
@@ -53,12 +46,14 @@ public class WorkerController {
     @PostMapping(path = "/container/start")
     public ResponseEntity<?> startContainer(@RequestBody String id) {
         dockerClient.startContainerCmd(id).exec();
+        workerService.start(id);
         return ResponseEntity.ok("started!");
     }
 
     @PostMapping(path = "/container/stop")
     public ResponseEntity<?> stopContainer(@RequestBody String id) {
         dockerClient.stopContainerCmd(id).exec();
+        workerService.stop(id);
         return ResponseEntity.ok("stopped!");
     }
 

@@ -60,7 +60,7 @@ dependencies {
 group = 'ai.openfabric'
 version = '1.0.0-SNAPSHOT'
 description = 'openfabric-node'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 
 import com.github.jengelman.gradle.plugins.shadow.transformers.PropertiesFileTransformer
@@ -78,3 +78,4 @@ shadowJar {
         mergeStrategy = "append"
     }
 }
+targetCompatibility = JavaVersion.VERSION_11

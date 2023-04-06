@@ -1,5 +1,6 @@
 package ai.openfabric.api.serviceImpl;
 
+import ai.openfabric.api.exception.WorkerNotFoundException;
 import ai.openfabric.api.model.Worker;
 import ai.openfabric.api.model.WorkerStatus;
 import ai.openfabric.api.model.request.WorkerCreateRequest;
@@ -10,12 +11,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class WorkerServiceImpl implements WorkerService {
 
     private final WorkerRepository workerRepository;
-
 
 
     @Override
@@ -38,13 +40,19 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public void start(String id) {
-
-
-
+        Worker worker = workerRepository.findByContainerId(id)
+                .orElseThrow(() -> new WorkerNotFoundException("Worker Not Found!"));
+        worker.setState(WorkerStatus.UP.name());
+        worker.setStatus(WorkerStatus.RUNNING.name());
+        workerRepository.save(worker);
     }
 
     @Override
     public void stop(String id) {
-
+        Worker worker = workerRepository.findByContainerId(id)
+                .orElseThrow(() -> new WorkerNotFoundException("Worker Not Found!"));
+        worker.setState(WorkerStatus.DOWN.name());
+        worker.setStatus(WorkerStatus.CLOSED.name());
+        workerRepository.save(worker);
     }
 }
